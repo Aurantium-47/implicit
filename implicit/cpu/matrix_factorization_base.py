@@ -253,7 +253,7 @@ class MatrixFactorizationBase(RecommenderBase):
 def _filter_items_from_sparse_matrix(items, query_items):
     """Remaps all the ids in query_items down to match the position
     in the items filter. Requires items to be sorted"""
-    filter_query_items = query_items.tocoo()
+    filter_query_items = query_items.tocoo(copy=True)
 
     positions = np.searchsorted(items, filter_query_items.col)
     positions = np.clip(positions, 0, len(items) - 1)
