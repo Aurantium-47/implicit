@@ -175,6 +175,10 @@ class AlternatingLeastSquares(MatrixFactorizationBase):
                     self.regularization,
                     num_threads=self.num_threads,
                 )
+                # Callbacks can populate these caches while inspecting the model.
+                # Both factor matrices have changed since the previous iteration.
+                self._item_norms = self._user_norms = None
+                self._YtY = self._XtX = None
                 progress.update(1)
 
                 if self.calculate_training_loss:
